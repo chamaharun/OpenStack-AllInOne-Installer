@@ -1,0 +1,16 @@
+---
+- hosts: all
+  sudo: yes
+  remote_user: root
+  tasks:
+    - name: Add rdo reoisitory
+      yum: name={{item}} state=present
+      with_items:
+       - https://rdoproject.org/repos/rdo-release.rpm
+
+    - name: yum install packstack
+      yum: name=openstack-packstack state=present
+
+    - name: start installation
+      shell: packstack --allinone
+
